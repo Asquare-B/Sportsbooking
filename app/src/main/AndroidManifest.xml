@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sports">
         <activity
+            android:name=".ConfirmationPage"
+            android:exported="true" />
+        <activity
+            android:name=".BookingForm"
+            android:exported="true" />
+        <activity
             android:name=".BookingDetails"
             android:exported="true" />
         <activity
