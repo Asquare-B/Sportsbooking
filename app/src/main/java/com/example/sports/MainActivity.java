@@ -1,13 +1,20 @@
 package com.example.sports;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.sports.databinding.ActivityMainBinding;
 
@@ -15,39 +22,67 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    ListView listView;
+    ClubAdapter clubAdapter;
+    String[] title;
+    String[] description;
+    int[] icon;
+    ArrayList<Clubs> arrayList = new ArrayList<Clubs>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+
         setContentView(R.layout.activity_main);
 
-        String[] name = {"Club aalap","Club saiyami"};
-        String[] add = {"location is daman vapi","Location in capital of gujarat"};
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Item List");
 
-        ArrayList<Clubs> clubsArrayList = new ArrayList<>();
-
-        for (int i=0;i<name.length;i++){
-            Clubs club = new Clubs(name[i],add[i]);
-            clubsArrayList.add(club);
+        title = new String[]{"AALAP CLUB","BHARGAV CLUB"};
+        description = new String[]{"CHALA MA CHE","ME TANE AADI?"};
+        icon = new int[]{R.drawable.images,R.drawable.club2};
+        listView = findViewById(R.id.listview);
+        for(int i=0;i<title.length;i++){
+            Clubs club = new Clubs(title[i], description[i], icon[i]);
+            arrayList.add(club);
         }
-        ClubAdapter listAdapter = new ClubAdapter(MainActivity.this,clubsArrayList);
+        clubAdapter = new ClubAdapter(this,arrayList);
+        listView.setAdapter(clubAdapter);
+    }
 
-        binding.listview.setAdapter(listAdapter);
-        binding.listview.setClickable(true);
-        binding.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
-                /*Intent i = new Intent(MainActivity.this,UserActivity.class);
-                i.putExtra("name",name[position]);
-                i.putExtra("phone",phoneNo[position]);
-                i.putExtra("country",country[position]);
-                i.putExtra("imageid",imageId[position]);
-                startActivity(i);
-                 */
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if(TextUtils.isEmpty(s)){
+                    clubAdapter.filter("");
+                    listView.clearTextFilter();
+                }
+                else{
+                    clubAdapter.filter(s);
+                }
+                return true;
             }
         });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.settings){
+            //do your functionality of of bookings;
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

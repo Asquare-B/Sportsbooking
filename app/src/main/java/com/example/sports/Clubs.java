@@ -4,11 +4,24 @@ import android.text.style.ClickableSpan;
 
 public class Clubs {
 
-    String name, add;
+    String title, desc;
+    int icon;
 
-    public Clubs(String name, String add) {
-        this.name = name;
-        this.add = add;
+    public Clubs(String title, String desc, int icon) {
+        this.title = title;
+        this.desc = desc;
+        this.icon = icon;
     }
 
+    public String getTitle(){
+        return this.title;
+    }
+
+    public String getDesc(){
+        return this.desc;
+    }
+
+    public int getIcon(){
+        return this.icon;
+    }
 }
