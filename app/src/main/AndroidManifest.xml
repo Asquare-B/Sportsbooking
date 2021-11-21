@@ -31,14 +31,14 @@
             android:name=".SplashScreen"
             android:exported="true" />
         <activity
-            android:name=".Welcome"
+            android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".Details"
             android:exported="true"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
