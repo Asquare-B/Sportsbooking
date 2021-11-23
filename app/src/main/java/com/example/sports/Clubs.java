@@ -4,29 +4,33 @@ package com.example.sports;
 public class Clubs {
 
     String name;
-    String add, sportname, price;
-    String[] comments;
-    int logo;
-    String imageurl;
+    String add;
+    String image;
 
-    public Clubs(String name, String add, int logo) {
-        this.name = name;
-        this.add = add;
-        this.logo = logo;
+
+    public Clubs() {
     }
 
-    public String getImageurl() {
-        return imageurl;
-    }
-
-    public Clubs(String name, String add, String sportname, String price, String[] comments, int logo, String imageurl) {
+    public Clubs(String name, String add, String image) {
         this.name = name;
         this.add = add;
-        this.sportname = sportname;
-        this.price = price;
-        this.comments = comments;
-        this.logo = logo;
-        this.imageurl = imageurl;
+        this.image = image;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAdd(String add) {
+        this.add = add;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getName() {
@@ -35,21 +39,5 @@ public class Clubs {
 
     public String getAdd() {
         return add;
-    }
-
-    public String getSportname() {
-        return sportname;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public String[] getComments() {
-        return comments;
-    }
-
-    public int getLogo() {
-        return logo;
     }
 }

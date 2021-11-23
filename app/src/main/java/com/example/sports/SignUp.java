@@ -3,23 +3,37 @@ package com.example.sports;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+
 
 public class SignUp extends AppCompatActivity {
 
     private EditText name, age, email, gender;
     private EditText pass,rpass;
     private Button signup;
+
+    FirebaseFirestore firebaseFirestore  = FirebaseFirestore.getInstance();
+    String userID;
 
     private FirebaseAuth auth;
 
@@ -36,14 +50,23 @@ public class SignUp extends AppCompatActivity {
         rpass = findViewById(R.id.SignupRePass);
         signup = findViewById(R.id.button8);
 
+
+
+
         auth = FirebaseAuth.getInstance();
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String userEmail = email.getText().toString();
                 String userPass = pass.getText().toString();
                 String userRpass = rpass.getText().toString();
+                String username = name.getText().toString();
+                String userage = age.getText().toString();
+                String usergender = gender.getText().toString();
+
+
 
                 if(TextUtils.isEmpty( userEmail) || TextUtils.isEmpty(userPass)){
                     Toast.makeText(SignUp.this,"Empty Credentials", Toast.LENGTH_LONG).show();
@@ -55,7 +78,41 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this,"Password is not Same", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    registerUser(userEmail,userPass);
+                    auth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+
+                                userID = auth.getCurrentUser().getUid();
+                                DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("name",username);
+                                map.put("age",userage);
+                                map.put("gender",usergender);
+                                map.put("email",userEmail);
+                                map.put("password",userPass);
+                                documentReference.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d("tag","onSuccess:user profile is added");
+                                    }
+
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("tag","onFailer:"+e.toString());
+                                    }
+                                });
+                                startActivity(new Intent(SignUp.this,LogIn.class));
+                                Toast.makeText(SignUp.this,"Registration Successful", Toast.LENGTH_LONG).show();
+
+                            }
+                            else{
+                                Toast.makeText(SignUp.this,"Failed", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
                 }
             }
         });
@@ -64,16 +121,6 @@ public class SignUp extends AppCompatActivity {
 
     private void registerUser(String email, String userPass) {
 
-        auth.createUserWithEmailAndPassword(email, userPass).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(SignUp.this,"Registration Successful", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    Toast.makeText(SignUp.this,"Failed", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+
     }
 }
