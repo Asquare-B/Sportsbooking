@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.sports.Clubs;
 import com.example.sports.R;
 
@@ -17,96 +20,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ClubAdapter extends BaseAdapter{
+public class ClubAdapter extends RecyclerView.Adapter<ClubHolder> {
 
-    Context mContext;
-    LayoutInflater inflater;
-    List<Clubs> clubList;
-    ArrayList<Clubs> arrayList;
+    Context context;
+    ArrayList<Clubs> club;
 
-    public ClubAdapter (Context mContext, List<Clubs> clubList){
-        this.mContext = mContext;
-        this.clubList = clubList;
-        inflater = LayoutInflater.from(mContext);
-        this.arrayList = new ArrayList<Clubs>();
-        this.arrayList.addAll(clubList);
+    public ClubAdapter(Context context, ArrayList<Clubs> club) {
+        this.context = context;
+        this.club = club;
+    }
+
+    @NonNull
+    @Override
+    public ClubHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(context).inflate(R.layout.row,null);
+        return new ClubHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ClubHolder holder, int position) {
+        holder.name.setText(club.get(position).getName());
+        holder.add.setText(club.get(position).getAdd());
+        holder.clubLogo.setImageResource(club.get(position).getLogo());
 
     }
 
     @Override
-    public int getCount() {
-        return clubList.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return clubList.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    public  class ViewHolder{
-        TextView mTitleTv,mDescTv;
-        ImageView mIconTv;
-    }
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        ViewHolder holder;
-        if (view==null){
-            holder = new ViewHolder();
-            view = inflater.inflate(R.layout.listview_item, null);
-            holder.mTitleTv = view.findViewById(R.id.mainTitle);
-            holder.mDescTv = view.findViewById(R.id.mainDesc);
-            holder.mIconTv = view.findViewById(R.id.mainIcon);
-            view.setTag(holder);
-        }
-        else {
-            holder = (ViewHolder) view.getTag();
-        }
-
-        holder.mTitleTv.setText(clubList.get(position).getTitle());
-        holder.mDescTv.setText(clubList.get(position).getDesc());
-        holder.mIconTv.setImageResource(clubList.get(position).getIcon());
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //code later
-                if(clubList.get(position).getTitle().equals("AALAP CLUB")){
-                    Intent intent = new Intent(mContext,Details.class);
-                    intent.putExtra("actionBarTitle","AALAP CLUB");
-                    intent.putExtra("contentTV","Provides Bastketball facilty");
-                    mContext.startActivity(intent);
-                }
-                if(clubList.get(position).getTitle().equals("BHARGAV CLUB")){
-                    Intent intent = new Intent(mContext,Details.class);
-                    intent.putExtra("actionBarTitle","BHARGAV CLUB");
-                    intent.putExtra("contentTV","Provides Football facilty");
-                    mContext.startActivity(intent);
-                }
-            }
-        });
-
-
-        return view;
-    }
-
-    public void filter(String charText){
-        charText = charText.toLowerCase(Locale.getDefault());
-        clubList.clear();
-        if (charText.length()==0){
-            clubList.addAll(arrayList);
-        }
-        else{
-            for (Clubs club : arrayList){
-                if(club.getTitle().toLowerCase(Locale.getDefault()).contains(charText)){
-                    clubList.add(club);
-                }
-            }
-        }
-        notifyDataSetChanged();
+    public int getItemCount() {
+        return club.size();
     }
 }

@@ -3,26 +3,53 @@ package com.example.sports;
 
 public class Clubs {
 
-    String title, desc;
+    String name;
     String add, sportname, price;
     String[] comments;
-    int icon;
+    int logo;
+    String imageurl;
 
-    public Clubs(String title, String desc, int icon) {
-        this.title = title;
-        this.desc = desc;
-        this.icon = icon;
+    public Clubs(String name, String add, int logo) {
+        this.name = name;
+        this.add = add;
+        this.logo = logo;
     }
 
-    public String getTitle(){
-        return this.title;
+    public String getImageurl() {
+        return imageurl;
     }
 
-    public String getDesc(){
-        return this.desc;
+    public Clubs(String name, String add, String sportname, String price, String[] comments, int logo, String imageurl) {
+        this.name = name;
+        this.add = add;
+        this.sportname = sportname;
+        this.price = price;
+        this.comments = comments;
+        this.logo = logo;
+        this.imageurl = imageurl;
     }
 
-    public int getIcon(){
-        return this.icon;
+    public String getName() {
+        return name;
+    }
+
+    public String getAdd() {
+        return add;
+    }
+
+    public String getSportname() {
+        return sportname;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String[] getComments() {
+        return comments;
+    }
+
+    public int getLogo() {
+        return logo;
     }
 }
