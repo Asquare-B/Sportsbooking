@@ -1,6 +1,5 @@
 package com.example.sports;
 
-import android.text.style.ClickableSpan;
 
 public class Clubs {
 
