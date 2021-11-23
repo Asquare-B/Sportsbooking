@@ -28,12 +28,12 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        name = findViewById(R.id.editTextTextPersonName);
-        age = findViewById(R.id.editTextTextPersonName2);
-        gender = findViewById(R.id.editTextTextPersonName3);
-        email = findViewById(R.id.editTextTextPersonName4);
-        pass = findViewById(R.id.editTextTextPassword);
-        rpass = findViewById(R.id.editTextTextPassword2);
+        name = findViewById(R.id.SignupName);
+        age = findViewById(R.id.SignupAge);
+        gender = findViewById(R.id.SignupGender);
+        email = findViewById(R.id.SignupEmail);
+        pass = findViewById(R.id.SignupPass);
+        rpass = findViewById(R.id.SignupRePass);
         signup = findViewById(R.id.button8);
 
         auth = FirebaseAuth.getInstance();

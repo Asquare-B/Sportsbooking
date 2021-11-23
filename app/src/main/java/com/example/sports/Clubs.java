@@ -5,6 +5,8 @@ import android.text.style.ClickableSpan;
 public class Clubs {
 
     String title, desc;
+    String add, sportname, price;
+    String[] comments;
     int icon;
 
     public Clubs(String title, String desc, int icon) {
