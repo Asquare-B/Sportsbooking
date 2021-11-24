@@ -18,13 +18,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
-
 
 public class SignUp extends AppCompatActivity {
 
@@ -32,10 +29,12 @@ public class SignUp extends AppCompatActivity {
     private EditText pass,rpass;
     private Button signup;
 
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore  = FirebaseFirestore.getInstance();
-    String userID;
+    public String userID = null;
+    public int i =0;
 
-    private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +48,6 @@ public class SignUp extends AppCompatActivity {
         pass = findViewById(R.id.SignupPass);
         rpass = findViewById(R.id.SignupRePass);
         signup = findViewById(R.id.button8);
-
-
-
-
         auth = FirebaseAuth.getInstance();
 
         signup.setOnClickListener(new View.OnClickListener() {
@@ -66,8 +61,6 @@ public class SignUp extends AppCompatActivity {
                 String userage = age.getText().toString();
                 String usergender = gender.getText().toString();
 
-
-
                 if(TextUtils.isEmpty( userEmail) || TextUtils.isEmpty(userPass)){
                     Toast.makeText(SignUp.this,"Empty Credentials", Toast.LENGTH_LONG).show();
                 }
@@ -78,12 +71,12 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(SignUp.this,"Password is not Same", Toast.LENGTH_LONG).show();
                 }
                 else{
+
                     auth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-
-                                userID = auth.getCurrentUser().getUid();
+                                userID = auth.getCurrentUser().getEmail();
                                 DocumentReference documentReference = firebaseFirestore.collection("users").document(userID);
                                 HashMap<String, Object> map = new HashMap<>();
                                 map.put("name",username);
@@ -95,6 +88,7 @@ public class SignUp extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d("tag","onSuccess:user profile is added");
+
                                     }
 
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -111,16 +105,16 @@ public class SignUp extends AppCompatActivity {
                                 Toast.makeText(SignUp.this,"Failed", Toast.LENGTH_LONG).show();
                             }
                         }
+
+                        private String toString(int i) {
+                            return ""+i;
+                        }
                     });
 
                 }
             }
+
         });
-
-    }
-
-    private void registerUser(String email, String userPass) {
-
 
     }
 }

@@ -4,40 +4,30 @@ package com.example.sports;
 public class Clubs {
 
     String name;
-    String add;
-    String image;
+    String address;
 
 
     public Clubs() {
     }
 
-    public Clubs(String name, String add, String image) {
+    public Clubs(String name, String address) {
         this.name = name;
-        this.add = add;
-        this.image = image;
+        this.address = address;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAdd(String add) {
-        this.add = add;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void setAdd(String address) {
+        this.address = address;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAdd() {
-        return add;
+    public String getAddress() {
+        return address;
     }
 }

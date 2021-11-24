@@ -26,7 +26,7 @@
         tools:layout_editor_absoluteY="131dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Address"
@@ -35,7 +35,7 @@
         tools:layout_editor_absoluteY="177dp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/sport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sports"
@@ -44,7 +44,7 @@
         tools:layout_editor_absoluteY="230dp" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price per person"
@@ -85,7 +85,7 @@
         tools:layout_editor_absoluteY="232dp" />
 
     <Button
-        android:id="@+id/b1"
+        android:id="@+id/bookClub"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="140dp"
         android:layout_height="51dp"
@@ -94,7 +94,7 @@
         tools:layout_editor_absoluteY="383dp" />
 
     <TextView
-        android:id="@+id/comments"
+        android:id="@+id/comment"
         android:layout_width="320dp"
         android:layout_height="216dp"
         android:text="Comments\n hello\n\nhello"

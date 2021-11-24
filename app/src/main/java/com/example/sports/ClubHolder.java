@@ -15,6 +15,6 @@ public class ClubHolder extends RecyclerView.ViewHolder {
     public ClubHolder(@NonNull View itemView) {
         super(itemView);
         this.name = itemView.findViewById(R.id.clubName);
-        this.add = itemView.findViewById(R.id.clubaddress);
+        this.add = itemView.findViewById(R.id.clubAddress);
     }
 }
