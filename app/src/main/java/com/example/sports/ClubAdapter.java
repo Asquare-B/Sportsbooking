@@ -44,7 +44,7 @@ public class ClubAdapter  extends RecyclerView.Adapter<ClubAdapter.ViewHolder> i
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(holder.name.getContext(),ClubDetials.class);
+                Intent intent = new Intent(holder.name.getContext(),ClubDetails.class);
                 intent.putExtra("name",c.getName());
                 intent.putExtra("address",c.getAddress());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
