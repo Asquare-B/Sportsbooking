@@ -47,6 +47,9 @@ public class ClubAdapter  extends RecyclerView.Adapter<ClubAdapter.ViewHolder> i
                 Intent intent = new Intent(holder.name.getContext(),ClubDetails.class);
                 intent.putExtra("name",c.getName());
                 intent.putExtra("address",c.getAddress());
+                intent.putExtra("price",c.getPrice());
+                intent.putExtra("sport",c.getSport());
+
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 holder.name.getContext().startActivity(intent);
             }

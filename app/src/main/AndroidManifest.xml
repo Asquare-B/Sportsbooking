@@ -12,6 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sports">
         <activity
+            android:name=".Verification2"
+            android:exported="true" />
+        <activity
+            android:name=".Verification1"
+            android:exported="true" />
+        <activity
+            android:name=".VerifyOTPActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SendOTPActivity"
+            android:exported="true" />
+        <activity
             android:name=".ClubDetails"
             android:exported="true" />
         <activity
