@@ -11,12 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sports">
-        <activity
-            android:name=".Verification2"
-            android:exported="true" />
-        <activity
-            android:name=".Verification1"
-            android:exported="true" />
+
         <activity
             android:name=".VerifyOTPActivity"
             android:exported="true" />
@@ -49,6 +44,9 @@
             android:exported="true" />
         <activity
             android:name=".SplashScreen"
+            android:exported="true" />
+        <activity
+            android:name=".booking_list"
             android:exported="true" />
         <activity
             android:name=".Welcome"

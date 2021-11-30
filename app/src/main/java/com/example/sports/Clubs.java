@@ -7,6 +7,15 @@ public class Clubs {
     String address;
     int price;
     String sport;
+    String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setAddress(String address) {
         this.address = address;
@@ -29,11 +38,12 @@ public class Clubs {
     }
 
 
-    public Clubs(String name, String address, int price, String sport) {
+    public Clubs(String name, String address, int price, String sport,String id) {
         this.name = name;
         this.address = address;
         this.price = price;
         this.sport = sport;
+        this.id = id;
     }
 
     public Clubs() {

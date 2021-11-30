@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class ClubAdapter  extends RecyclerView.Adapter<ClubAdapter.ViewHolder> implements Filterable {
+public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.ViewHolder> implements Filterable {
 
     Context context;
     ArrayList<Clubs> clubsArrayList;
@@ -49,6 +49,7 @@ public class ClubAdapter  extends RecyclerView.Adapter<ClubAdapter.ViewHolder> i
                 intent.putExtra("address",c.getAddress());
                 intent.putExtra("price",c.getPrice());
                 intent.putExtra("sport",c.getSport());
+                intent.putExtra("id",c.getId());
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 holder.name.getContext().startActivity(intent);

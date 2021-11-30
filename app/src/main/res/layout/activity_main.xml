@@ -12,16 +12,36 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="600dp" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:layout_marginTop="30dp"
+    >
+    <Button
+        android:id="@+id/loadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:text="Refresh"
+        android:textSize="15sp" />
 
     <Button
+        android:id="@+id/bookingbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingHorizontal="20dp"
+        android:layout_marginHorizontal="20dp"
         android:paddingVertical="10dp"
-        android:textSize="15sp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/loadButton"
-        android:text="Refresh" />
+        android:text="Bookings"
+        android:textSize="15sp"/>
+</LinearLayout>
+
 </LinearLayout>

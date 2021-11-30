@@ -1,11 +1,5 @@
 package com.example.sports;
 
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -22,19 +21,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class booking_list extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    ArrayList<Clubs> clubsArrayList;
-    ClubAdapter clubAdapter;
+    ArrayList<booking> bookingArrayList;
+    bookAdapter bookAdapter;
     FirebaseFirestore firebaseFirestore;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
     private Button refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.booking_list);
         refresh = findViewById(R.id.loadButton);
 
         recyclerView = findViewById(R.id.recyclerview);
@@ -43,48 +42,49 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        clubsArrayList = new ArrayList<Clubs>();
-        clubsArrayList.clear();
-        clubAdapter = new ClubAdapter(MainActivity.this,clubsArrayList);
-        recyclerView.setAdapter(clubAdapter);
+
+        bookingArrayList = new ArrayList<booking>();
+        bookingArrayList.clear();
+        bookAdapter = new bookAdapter(booking_list.this,bookingArrayList);
+        recyclerView.setAdapter(bookAdapter);
         getData();
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clubAdapter.getFilter().filter(null);
+                bookAdapter.getFilter().filter(null);
             }
         });
-        findViewById(R.id.bookingbutton).setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,booking_list.class));
+                startActivity(new Intent(booking_list.this,MainActivity.class));
                 finish();
             }
         });
 
-
     }
-
 
     private void getData() {
 
-        firebaseFirestore.collection("Clubs").get()
+        firebaseFirestore.collection("bookings").whereEqualTo("email",auth.getCurrentUser().getEmail()).whereEqualTo("counter",false)
+                .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         for(DocumentSnapshot d:list){
-                            Clubs club = d.toObject(Clubs.class);
-                            clubsArrayList.add(club);
+
+                            booking booking = d.toObject(com.example.sports.booking.class);
+                            bookingArrayList.add(booking);
                         }
-                        clubAdapter.notifyDataSetChanged();
+                        bookAdapter.notifyDataSetChanged();
                     }
                 });
 
-    }
 
-    @Override
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String s) {
 
-                clubAdapter.getFilter().filter(s);
+                bookAdapter.getFilter().filter(s);
 
                 return false;
             }

@@ -84,11 +84,12 @@ public class SignUp extends AppCompatActivity {
                                 map.put("gender",usergender);
                                 map.put("email",userEmail);
                                 map.put("password",userPass);
+                                map.put("counter",false);
                                 documentReference.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d("tag","onSuccess:user profile is added");
-
+                                        Toast.makeText(SignUp.this,"Added", Toast.LENGTH_LONG).show();
                                     }
 
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -106,9 +107,6 @@ public class SignUp extends AppCompatActivity {
                             }
                         }
 
-                        private String toString(int i) {
-                            return ""+i;
-                        }
                     });
 
                 }
