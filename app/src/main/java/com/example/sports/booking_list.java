@@ -49,12 +49,6 @@ public class booking_list extends AppCompatActivity {
         recyclerView.setAdapter(bookAdapter);
         getData();
 
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bookAdapter.getFilter().filter(null);
-            }
-        });
 
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,27 +79,5 @@ public class booking_list extends AppCompatActivity {
 
 
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setQueryHint("Search here");
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-                bookAdapter.getFilter().filter(s);
-
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
 }

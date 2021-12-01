@@ -25,8 +25,7 @@ public class bookAdapter extends RecyclerView.Adapter<bookAdapter.ViewHolder>{
 
     public bookAdapter(Context context, ArrayList<booking> bookingArrayList) {
         this.context = context;
-        this.bookingArrayListFull= bookingArrayList;
-        this.bookingArrayList = new ArrayList<booking>(bookingArrayListFull);
+        this.bookingArrayList= bookingArrayList;
     }
 
 
@@ -41,15 +40,16 @@ public class bookAdapter extends RecyclerView.Adapter<bookAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull bookAdapter.ViewHolder holder, int position) {
         booking b = bookingArrayList.get(position);
-        holder.clubname.setText(b.clubname);
-        holder.clubaddress.setText(b.clubaddress);
-
-        holder.clubsport.setText(b.clubsport);
-        holder.clubprice.setText(b.clubprice);
-        holder.datetime.setText(b.date+"time"+b.time);
-
-        holder.count.setText(b.count);
-        holder.cost.setText(b.cost);
+        holder.clubname.setText(b.getClubname());
+        holder.clubaddress.setText(b.getClubaddress());
+        holder.clubsport.setText(b.getClubsport());
+        holder.clubprice.setText(b.getClubprice());
+        holder.date.setText(b.getDate());
+        holder.time.setText(b.getTime());
+        String c = String.valueOf(b.getCount());
+        holder.count.setText(c);
+        String t = String.valueOf(b.getCost());
+        holder.cost.setText(t);
     }
 
     @Override
@@ -59,14 +59,15 @@ public class bookAdapter extends RecyclerView.Adapter<bookAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView clubname,clubaddress,clubsport,clubprice;
-        TextView datetime,count,cost;
+        TextView date,time,count,cost;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             clubname = itemView.findViewById(R.id.clubName);
             clubaddress = itemView.findViewById(R.id.clubAddress);
             clubsport = itemView.findViewById(R.id.clubsport);
             clubprice = itemView.findViewById(R.id.clubprice);
-            datetime = itemView.findViewById(R.id.datetime);
+            date = itemView.findViewById(R.id.date);
+            time = itemView.findViewById(R.id.time);
             count = itemView.findViewById(R.id.count);
             cost = itemView.findViewById(R.id.cost);
         }

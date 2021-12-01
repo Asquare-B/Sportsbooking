@@ -22,7 +22,7 @@
             android:name=".ClubDetails"
             android:exported="true" />
         <activity
-            android:name=".homepage"
+            android:name=".Welcome"
             android:exported="true" />
         <activity
             android:name=".ConfirmationPage"
@@ -49,7 +49,7 @@
             android:name=".booking_list"
             android:exported="true" />
         <activity
-            android:name=".Welcome"
+            android:name=".homepage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
