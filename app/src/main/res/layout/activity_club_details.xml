@@ -79,7 +79,7 @@
         android:layout_width="320dp"
         android:layout_height="216dp"
         android:layout_marginTop="50dp"
-        android:text="Comments\n hello\n\nhello"
+        android:text="It was good service\n\n Nice maintained\n\nresonable rate"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
